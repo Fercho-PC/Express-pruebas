@@ -19,6 +19,7 @@ const listaJuego = async (req, res) => {
     res.status(300).send({
         message:"Estas en la lista de juegos"
     });
+
 }
 
 const infoJuego = async (req, res) => {
@@ -27,10 +28,6 @@ const infoJuego = async (req, res) => {
         message:"estas en la informacion del juego"
     });
 }
-
-
-
-
 
 export {
     comprarJuego,

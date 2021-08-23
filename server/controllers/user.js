@@ -1,26 +1,75 @@
+import { db } from "../config/dataBase";
+
 const mostrarUsuarios = async (req, res) => {
-    console.log("hola estas en usuarios")
-    res.status(200).send({
-        message:"Hola mundo"
-    });
+
+    try {
+        const results = await db.user.findAll();
+        res.status(200).send(results);
+    } catch (error) {
+        res.status(200).send({
+            message:error.message,
+        });
+    }
 }
+
+
 const insertarUsuarios = async (req, res) => {
-    console.log("Estas insertando un usuario")
-    res.status(200).send({
-        message:"Estas insertando un usuario"
-    });
+
+    try {
+        await db.user.create(
+            {
+                title:req.body.title,
+                description: req.body.description,
+                published: req.body.published,
+            });
+            res.status(200).send({
+                message:"Registrado satisfactoriamente"
+            });
+    } catch (error) {
+        res.status(200).send({
+            message:error.message,
+        });
+    }    
 }
+
+
 const actualizarUsuarios = async (req, res) => {
-    console.log("Estas actualizando un usuario")
-    res.status(200).send({
-        message:"Estas actualizando un usuario"
-    });
+    try {
+        await db.user.update(
+            {
+                title:req.body.title,
+                description: req.body.description,
+                published: req.body.published,
+            },
+            {
+                where:{ id: req.params.id },
+            }
+        );
+        res.status(200).send({
+            message:error.message,
+        });
+    } catch (error) {
+        res.status(200).send({
+            message: error.message,
+        });
+    }
+   
+    
 }
 const eliminarUsuarios = async (req, res) => {
-    console.log("Estas eliminando un usuario")
-    res.status(200).send({
-        message:"Estas eliminando un usuario"
-    });
+
+
+    try {
+        await db.user.destroy({
+            where: { id: req.params.id},
+        });
+        res.status(200).send(results);
+    } catch (error) {
+        res.status(200).send({
+            message:error.message,
+        });
+    }
+    
 }
 
 export {
